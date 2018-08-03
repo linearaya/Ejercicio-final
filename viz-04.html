@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Concentración de Roedores</title>
+</head>
+
+<body>
+    <!--Nada más que p5.js para dibujar en el body de esta página-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
+    <script>
+        var data;
+
+        function preload(){
+          data = loadJSON("https://raw.githubusercontent.com/pituebensperger/datos/master/yapo.json","json");
+        }
+
+        function setup() {
+            var canvas = createCanvas(windowWidth, 500);
+            canvas.position(0, 0)
+            smooth();
+            noLoop();
+            print(data);
+            print(15);
+            noStroke();
+        }
+
+        function draw() {
+          background(155);
+            translate(70,0);
+            var regiones = 15;
+            for (var a = 0; a < regiones; a++) {
+              var reg = data[a].region;
+              var ratones = data[a].especies;
+                fill(0);
+                textAlign(CENTER);
+                textSize(12);
+                text(ratones,(width/regiones)*1.5*a,height/3)
+                text(reg,(width/regiones)*1.5*a,height/3.5)
+
+                
+             fill(255,map(ratones,0,10,75,150));
+              ellipse((width/regiones)*1.5*a,height/3,2*(ratones+1),2*(ratones+1));
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, 500);
+        }
+    </script>
+</body>
+
+</html>
